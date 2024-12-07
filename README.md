@@ -20,7 +20,7 @@ We aim to make staying informed easy, enjoyable, and tailored to your needs.
 - **Crime & Law**
 - **Education**
 - **Entertainment & Lifestyle**  
-- **Global News & Cultures Across**
+- **Global News**
 - **Health & Wellness**
 - **In Other News**
 - **LGBTQ+**
