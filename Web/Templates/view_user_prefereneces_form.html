@@ -1,1 +1,12 @@
+{% extends 'base.html' %}
 
+{% block content %}
+<div class="content-container">
+    <h2>View User Preferences</h2>
+    <form action="/view_user_preferences" method="POST" class="form-container">
+        <label for="name">Enter User Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit" class="cta-button">Submit</button>
+    </form>
+</div>
+{% endblock %}
