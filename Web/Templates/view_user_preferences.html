@@ -1,28 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Preferences - Personalized News Aggregator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <header>
-        <h1>User Preferences</h1>
-    </header>
-    <main>
-        <ul>
-            {% for user in users %}
-            <li>
-                {{ user.Name }} (ID: {{ user.User_ID }})
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <h2>User Preferences</h2>
+
+    <div class="user-preferences-grid">
+        {% for user in users %}
+        <div class="user-preferences-item">
+            <h3>User: {{ user.Name }}</h3>
+            <p><strong>User ID:</strong> {{ user.User_ID }}</p>
+
+            <div class="preferences-list">
+                <h4>Preferences:</h4>
                 <ul>
-                    {% for pref in user.Preferences %}
-                    <li>{{ pref.Category }}</li>
+                    {% for preference in user.Preferences %}
+                    <li>{{ preference.Category }} ({{ preference.Category_ID }})</li>
                     {% endfor %}
                 </ul>
-            </li>
-            {% endfor %}
-        </ul>
-    </main>
-</body>
-</html>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not users %}
+    <p>No user preferences found.</p>
+    {% endif %}
+</div>
+{% endblock %}
