@@ -1,1 +1,60 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Personalized News Aggregator</h1>
+    </header>
+    <div class="main-menu">
+        <a href="{{ url_for('view_articles') }}">
+            <img src="{{ url_for('static', filename='images/view_articles.jpg') }}" alt="View Articles">
+            View Articles
+        </a>
+        <a href="{{ url_for('view_articles_by_category') }}">
+            <img src="{{ url_for('static', filename='images/view_articles_by_category.jpg') }}" alt="View Articles by Category">
+            View Articles by Category
+        </a>
+        <a href="{{ url_for('view_categories') }}">
+            <img src="{{ url_for('static', filename='images/view_categories.jpg') }}" alt="View Categories">
+            View Categories
+        </a>
+        <a href="{{ url_for('view_users') }}">
+            <img src="{{ url_for('static', filename='images/view_users.jpg') }}" alt="View Users">
+            View Users
+        </a>
+        <a href="{{ url_for('create_user') }}">
+            <img src="{{ url_for('static', filename='images/create_user.jpg') }}" alt="Create User">
+            Create User
+        </a>
+        <a href="{{ url_for('update_user') }}">
+            <img src="{{ url_for('static', filename='images/update_user.jpg') }}" alt="Update User">
+            Update User
+        </a>
+        <a href="{{ url_for('delete_user') }}">
+            <img src="{{ url_for('static', filename='images/delete_user.jpg') }}" alt="Delete User">
+            Delete User
+        </a>
+        <a href="{{ url_for('view_user_preferences') }}">
+            <img src="{{ url_for('static', filename='images/view_user_preferences.jpg') }}" alt="View Preferences">
+            View User Preferences
+        </a>
+        <a href="{{ url_for('update_user_preference') }}">
+            <img src="{{ url_for('static', filename='images/update_user_preference.jpg') }}" alt="Update Preferences">
+            Update User Preference
+        </a>
+        <a href="{{ url_for('delete_user_preference') }}">
+            <img src="{{ url_for('static', filename='images/delete_user_preference.jpg') }}" alt="Delete Preferences">
+            Delete User Preference
+        </a>
+        <a href="{{ url_for('view_user_preference_stats') }}">
+            <img src="{{ url_for('static', filename='images/view_user_preference_stats.jpg') }}" alt="Preference Stats">
+            View User Preference Statistics
+        </a>
+    </div>
+</body>
+</html>
