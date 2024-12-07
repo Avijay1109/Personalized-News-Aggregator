@@ -6,7 +6,9 @@ from api_calls import (
     fetch_categories,
     fetch_users,
     create_user,
-    fetch_user_preferences,
+    update_user,
+    delete_user,
+    fetch_user_preferences_by_name,
     update_user_preference,
     delete_user_preference,
     get_user_preference_stats
@@ -131,27 +133,83 @@ def create_new_user():
         print(Term.green(f"User created successfully! User ID: {result['User_ID']}"))
     input(Term.yellow("Press Enter to continue..."))
 
-def view_user_preferences():
+def update_user_menu():
+    """
+    Menu option to update a user's name.
+    """
     Term.clear()
-    print(Term.blue("Fetching user preferences..."))
-    preferences = fetch_user_preferences(limit=10)
-    if "error" in preferences:
-        print(Term.red(preferences["error"]))
-    else:
-        print(Term.green("User Preferences:"))
-        for pref in preferences:
-            print(f"User ID: {pref['User_ID']} | Category ID: {pref['Category_ID']}")
-            print("-" * 20)
-    input(Term.yellow("Press Enter to continue..."))
+    user_id = input(Term.blue("Enter User ID to update: ")).strip()
+    new_name = input(Term.blue("Enter new name for the user: ")).strip()
+    
+    if not user_id or not new_name:
+        print(Term.red("User ID and New Name are required."))
+        input(Term.yellow("Press Enter to continue..."))
+        return
 
-def update_user_preference_menu():
-    Term.clear()
-    user_id = input(Term.blue("Enter User ID: "))
-    category_id = input(Term.blue("Enter Category ID: "))
-    print(Term.blue("Updating user preference..."))
-    result = update_user_preference(user_id, category_id)
+    print(Term.blue("Updating user information..."))
+    result = update_user(user_id, new_name)
     if "error" in result:
         print(Term.red(result["error"]))
+    else:
+        print(Term.green(f"User updated successfully! New Name: {result['user']['Name']}"))
+    input(Term.yellow("Press Enter to continue..."))
+
+def delete_user_menu():
+    """
+    Menu option to delete a user.
+    """
+    Term.clear()
+    user_id = input(Term.blue("Enter User ID to delete: ")).strip()
+    
+    if not user_id:
+        print(Term.red("User ID is required."))
+        input(Term.yellow("Press Enter to continue..."))
+        return
+
+    print(Term.blue("Deleting user..."))
+    result = delete_user(user_id)
+    if "error" in result:
+        print(Term.red(result["error"]))
+    else:
+        print(Term.green(f"User deleted successfully! User ID: {result['user']['User_ID']}"))
+        if result['user'].get('preferences'):
+            print(Term.yellow("Deleted Preferences:"))
+            for pref in result['user']['preferences']:
+                print(f"  - {pref}")
+    input(Term.yellow("Press Enter to continue..."))
+
+def view_user_preferences():
+    """
+    View user preferences by user name with color-coded terminal output.
+    """
+    Term.clear()
+    name = input(Term.blue("Enter User Name: "))
+    print(Term.blue(f"Fetching preferences for user: {name}..."))
+    
+    preferences = fetch_user_preferences_by_name(name)
+
+    if "error" in preferences:
+        print(Term.red(preferences["error"]))
+    elif not preferences.get("users", []):
+        print(Term.yellow(f"No preferences found for the user name: {name}"))
+    else:
+        print(Term.green("User Preferences:"))
+        for user in preferences["users"]:
+            print(Term.blue(f"User ID: {user['User_ID']} | Name: {user['Name']}"))
+            for pref in user["Preferences"]:
+                print(Term.yellow(f"  - Category: {pref['Category']} (ID: {pref['Category_ID']})"))
+    
+    input(Term.yellow("Press Enter to continue..."))
+
+def update_user_preference_menu(): 
+    Term.clear()
+    user_id = input(Term.blue("Enter User ID: "))
+    category = input(Term.blue("Enter Category: "))
+    print(Term.blue("Updating user preference..."))
+    result = update_user_preference(user_id, category)
+    if "error" in result:
+        print(Term.red(result["error"]))
+        print(Term.yellow(result.get("details", "No additional details.")))  # Log backend error details
     else:
         print(Term.green("User preference updated successfully!"))
     input(Term.yellow("Press Enter to continue..."))
@@ -160,15 +218,15 @@ def delete_user_preference_menu():
     """Delete an existing user preference."""
     Term.clear()
     user_id = input(Term.blue("Enter User ID: ")).strip()
-    category_id = input(Term.blue("Enter Category ID to delete preference: ")).strip()
+    category = input(Term.blue("Enter Category to delete preference: ")).strip()
     
     print(Term.yellow("Deleting user preference..."))
-    result = delete_user_preference(user_id, category_id)
+    result = delete_user_preference(user_id, category)
     
     if "error" in result:
         print(Term.red(f"Error: {result['error']}"))
     else:
-        print(Term.green(f"Preference deleted successfully for User ID: {user_id} and Category ID: {category_id}"))
+        print(Term.green(f"Preference deleted successfully for User ID: {user_id} and Category: {category}"))
     
     input(Term.yellow("Press Enter to continue..."))
 
@@ -206,11 +264,13 @@ def main_menu():
         print(Term.green("3. View Categories"))
         print(Term.green("4. View Users"))
         print(Term.green("5. Create New User"))
-        print(Term.green("6. View User Preferences"))
-        print(Term.green("7. Update User Preference"))
-        print(Term.green("8. Delete User Preference"))
-        print(Term.green("9. View User Preference Statistics"))
-        print(Term.green("10. Exit"))
+        print(Term.green("6. Update User"))
+        print(Term.green("7. Delete User"))
+        print(Term.green("8. View User Preferences"))
+        print(Term.green("9. Update User Preference"))
+        print(Term.green("10. Delete User Preference"))
+        print(Term.green("11. View User Preference Statistics"))
+        print(Term.green("12. Exit"))
         choice = input(Term.blue("Enter your choice: ")).strip()
         if choice == '1':
             view_articles()
@@ -223,14 +283,18 @@ def main_menu():
         elif choice == '5':
             create_new_user()
         elif choice == '6':
-            view_user_preferences()
+            update_user_menu()
         elif choice == '7':
-            update_user_preference_menu()
+            delete_user_menu()
         elif choice == '8':
-            delete_user_preference_menu()
+            view_user_preferences()
         elif choice == '9':
-            view_user_preference_stats()
+            update_user_preference_menu()
         elif choice == '10':
+            delete_user_preference_menu()
+        elif choice == '11':
+            view_user_preference_stats()
+        elif choice == '12':
             print(Term.blue("Goodbye!"))
             break
         else:
