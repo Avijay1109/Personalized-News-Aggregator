@@ -6,8 +6,8 @@ Our goal in developing this project was to provide a centralized place for you t
 
 With this aggregator, you can:  
 - **Create an account** to personalize your experience.  
-- **Register your news preferences** by adding category preferences to your account.  
-- **Browse articles** and discover news that matches your interests.  
+- **Register your news preferences** by adding news category preferences to your account.  
+- **Browse articles** by category and discover news that matches your interests.  
 
 We aim to make staying informed easy, enjoyable, and tailored to your needs.  
 
