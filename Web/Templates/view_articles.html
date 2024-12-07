@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Articles - Personalized News Aggregator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Articles</h1>
-    </header>
-    <main>
-        <ul>
-            {% for article in articles %}
-            <li>{{ article.Title }}</li>
-            {% endfor %}
-        </ul>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <h2>Articles</h2>
+
+    <div class="articles-grid">
+        {% for article in articles %}
+        <div class="article-item">
+            <h3>{{ article.Title }}</h3>
+            <img src="../static/images/articles_placeholder.jpg" alt="Article Image">
+            <p><strong>Category:</strong> {{ article.Category }}</p>
+            <p>{{ article.Content }}</p>
+            <a href="{{ article.URL }}" target="_blank" class="cta-button">Read More</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not articles %}
+    <p>No articles available.</p>
+    {% endif %}
+</div>
+{% endblock %}
