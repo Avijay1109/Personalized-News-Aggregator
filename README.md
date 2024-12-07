@@ -39,3 +39,10 @@ We aim to make staying informed easy, enjoyable, and tailored to your needs.
 - **Save Time**: Skip irrelevant news and focus on what matters to you.
 - **Easy and Intuitive**: Designed to provide a seamless and enjoyable user experience.
 - **Stay Informed**: Never miss an update on topics that matter to you the most.
+
+---
+
+## Get Started Today!
+
+Sign up now and start exploring articles tailored to your preferences.  
+Stay informed with your very own personalized news aggregator!
