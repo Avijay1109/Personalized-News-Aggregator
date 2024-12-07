@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <h2>Delete User</h2>
+    <form action="/delete_user" method="POST" class="form-container">
+        <label for="user_id">Enter User ID to Delete:</label>
+        <input type="text" id="user_id" name="user_id" required>
+
+        <button type="submit" class="cta-button">Delete User</button>
+    </form>
+</div>
+{% endblock %}

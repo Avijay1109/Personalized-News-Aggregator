@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <h2>Articles in Category: {{ category_name }}</h2>
+
+    <div class="articles-grid">
+        {% for article in articles %}
+        <div class="article-item">
+            <h3>{{ article.Title }}</h3>
+            <img src="../static/images/articles_placeholder.jpg" alt="Article Image">
+            <p><strong>Category:</strong> {{ article.Category }}</p>
+            <p>{{ article.Content }}</p>
+            <a href="{{ article.URL }}" target="_blank" class="cta-button">Read More</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not articles %}
+    <p>No articles available in this category.</p>
+    {% endif %}
+</div>
+{% endblock %}
