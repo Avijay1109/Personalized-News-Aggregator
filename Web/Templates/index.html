@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Personalized News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Personalized News Aggregator</h1>
+    </header>
+    <main>
+        <p>Use the navigation below to explore:</p>
+        <ul>
+            <li><a href="{{ url_for('articles') }}">View Articles</a></li>
+            <li><a href="{{ url_for('categories') }}">View Categories</a></li>
+            <li><a href="{{ url_for('users') }}">View Users</a></li>
+            <li><a href="{{ url_for('user_preferences') }}">View User Preferences</a></li>
+        </ul>
+    </main>
+</body>
+</html>
