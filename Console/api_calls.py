@@ -72,40 +72,67 @@ def create_user(name, email, password):
     data = {"Name": name, "Email": email, "Password": password}
     response = requests.post(f"{BASE_URL}/users", json=data)
     if response.status_code == 201:
-        return response.json()
+        user_data = response.json()
+        return {"User_ID": user_data["user"]["User_ID"]}
+    elif response.status_code == 409:
+        return {"error": "Email already exists. Please use a different email."}
     else:
-        return {"error": f"Failed to create user. Status code: {response.status_code}"}
+        return {
+            "error": f"Failed to create user. Status code: {response.status_code}",
+            "details": response.text,
+        }
+
+def update_user(user_id, new_name):
+    """
+    Update a user's name.
+    """
+    data = {"Name": new_name}
+    response = requests.put(f"{BASE_URL}/users/{user_id}", json=data)
+    if response.status_code == 200:
+        return response.json()  # Return the updated user data
+    else:
+        return {"error": f"Failed to update user. Status code: {response.status_code}"}
+
+def delete_user(user_id):
+    """
+    Delete a user by their ID.
+    """
+    response = requests.delete(f"{BASE_URL}/users/{user_id}")
+    if response.status_code == 200:
+        return response.json()  # Return the deletion confirmation
+    else:
+        return {"error": f"Failed to delete user. Status code: {response.status_code}"}
 
 # ----------------------------------------
 # User Preference Endpoints
 # ----------------------------------------
 
-def fetch_user_preferences(limit=None):
+def fetch_user_preferences_by_name(name):
     """
-    Fetch user preferences with an optional limit.
+    Fetch user preferences filtered by user name.
     """
-    url = f"{BASE_URL}/user_preferences"
-    if limit:
-        url += f"?limit={limit}"
-    response = requests.get(url)
+    response = requests.get(f"{BASE_URL}/user_preferences", params={"name": name})
     if response.status_code == 200:
-        return response.json()
+        return response.json()  # Parse the JSON response
     else:
-        return {"error": f"Failed to fetch user preferences. Status code: {response.status_code}"}
+        return {"error": f"Failed to fetch preferences. Status code: {response.status_code}"}
 
 def update_user_preference(user_id, category):
     """
     Update an existing user preference.
     """
-    data = {"Category": category}
+    data = {"categories": [category]}  # Convert single category to a list
     response = requests.put(f"{BASE_URL}/user_preferences/{user_id}", json=data)
     if response.status_code == 200:
         return response.json()
     else:
-        return {"error": f"Failed to update user preference. Status code: {response.status_code}"}
+        return {
+            "error": f"Failed to update user preference. Status code: {response.status_code}",
+            "details": response.text,
+        }
     
 def delete_user_preference(user_id, category):
-    """Delete a user preference by user ID and category ID."""
+    """Delete a user preference by user ID and category."""
     response = requests.delete(f"{BASE_URL}/user_preferences/{user_id}/{category}")
     if response.status_code == 200:
         return response.json()
