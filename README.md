@@ -13,4 +13,22 @@ We aim to make staying informed easy, enjoyable, and tailored to your needs.
 
 ---  
 
-Start exploring today and enjoy a truly personalized news experience!
+## Select from a wide variety of topics such as:
+
+- **Arts & Culture**
+- **Business & Finance**
+- **Crime & Law**
+- **Education**
+- **Entertainment & Lifestyle**  
+- **Global News & Cultures Across**
+- **Health & Wellness**
+- **In Other News**
+- **LGBTQ+**
+- **Politics**
+- **Religion**
+- **Science & Environment**  
+- **Sports**
+- **Tech**
+- **Travel**
+- **U.S. News**
+
