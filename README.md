@@ -9,7 +9,7 @@ With this aggregator, you can:
 - **Register your preferences** by adding news category preferences to your account.  
 - **Browse articles** by category and discover news that matches your interests.  
 
-We aim to make staying informed easy, enjoyable, and tailored to your needs.  
+We aim to make staying informed easy, enjoyable, and tailored to what you want to see.  
 
 ---  
 
